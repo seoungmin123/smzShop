@@ -1,4 +1,4 @@
-package com.serverCommerce.smzShop;
+package com.server.smzshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
