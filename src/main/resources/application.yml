@@ -28,7 +28,9 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug
+    com.server.smzshop: DEBUG
+    org.springframework: INFO
+    org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 server:
