@@ -6,12 +6,12 @@ public class UserCommand{
     private UserCommand(){}
 
     public static record Register(
-            String username,
+            String userId,
             String password,
             String name
     ){
         public static Register from(UserRegisterRequest userReq){
-            return new Register(userReq.username(), userReq.password(), userReq.name());
+            return new Register(userReq.userId(), userReq.password(), userReq.name());
         }
     }
 }

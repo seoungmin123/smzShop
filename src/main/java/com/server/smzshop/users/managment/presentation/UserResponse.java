@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public record UserResponse (
         Long id,
-        String username,
+        String userId,
         String name,
         Users.UserRole userRole,
         Users.AccountStatus accountStatus,
@@ -16,7 +16,7 @@ public record UserResponse (
    public static UserResponse from(UserInfo info) {
        return new UserResponse(
                info.id(),
-               info.username(),
+               info.userId(),
                info.name(),
                info.userRole(),
                info.accountStatus(),

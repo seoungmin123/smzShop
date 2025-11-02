@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public record UserInfo (
         Long id,
-        String username,
+        String userId,
         String name,
         Users.UserRole userRole,
         Users.AccountStatus accountStatus,
@@ -16,7 +16,7 @@ public record UserInfo (
     public static UserInfo from(Users users) {
         return new UserInfo(
                 users.getId(),
-                users.getUsername(),
+                users.getUserId(),
                 users.getName(),
                 users.getUserRole(),
                 users.getAccountStatus(),

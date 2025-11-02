@@ -18,7 +18,7 @@ public enum ExceptionEnum {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U0002", "사용자를 찾을 수 없습니다. : %s"),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "U0003", "비밀번호가 일치하지 않습니다."),
     ACCOUNT_DISABLED(HttpStatus.FORBIDDEN, "U0004", "비활성화된 계정입니다. : %s"),
-    INVALID_USERNAME_FORMAT(HttpStatus.BAD_REQUEST, "U0005", "아이디 형식이 올바르지 않습니다. : %s"),
+    INVALID_USERID_FORMAT(HttpStatus.BAD_REQUEST, "U0005", "아이디 형식이 올바르지 않습니다. : %s"),
     INVALID_PASSWORD_FORMAT(HttpStatus.BAD_REQUEST, "U0006", "비밀번호 형식이 올바르지 않습니다. : %s"),
 
     // 인증/인가 예외 (A로 시작)

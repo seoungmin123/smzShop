@@ -18,7 +18,7 @@ public class Users extends BaseEntity {
     private Long id;
 
     @Column(length = 10, nullable = false, unique = true)
-    private String username;
+    private String userId;
 
     @Column(name = "password_hash", length = 255, nullable = false)
     private String passwordHash;
@@ -37,14 +37,14 @@ public class Users extends BaseEntity {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    private Users(String username, String password, String name) {
-        this.username = username;
+    private Users(String userId, String password, String name) {
+        this.userId = userId;
         this.passwordHash = password;
         this.name = name;
     }
 
-    public static Users createUser(String username, String password, String name) {
-        return new Users(username, password, name);
+    public static Users createUser(String userId, String password, String name) {
+        return new Users(userId, password, name);
     }
 
     public enum UserRole {
