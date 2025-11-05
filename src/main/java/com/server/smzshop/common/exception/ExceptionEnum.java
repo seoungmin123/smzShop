@@ -26,6 +26,8 @@ public enum ExceptionEnum {
     ACCESS_DENIED(HttpStatus.FORBIDDEN, "A0002", "접근 권한이 없습니다. : %s"),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "A0003", "토큰이 만료되었습니다. : %s"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "A0004", "유효하지 않은 토큰입니다. : %s"),
+    ACCESS_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "A0005", "access 토큰을 찾을수 없습니다. : %s"),
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "A0005", "refresh 토큰을 찾을수 없습니다. : %s"),
 
     // 일반적인 비즈니스 예외 (B로 시작)
     INVALID_INPUT(HttpStatus.BAD_REQUEST, "B0001", "입력값이 올바르지 않습니다. : %s"),

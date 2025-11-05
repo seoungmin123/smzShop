@@ -5,6 +5,8 @@ import com.server.smzshop.users.managment.domain.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -17,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Users findByUserId(String userId) {
+    public Optional<Users> findByUserId(String userId) {
         return userJpaRepository.findByUserId(userId);
     }
 }

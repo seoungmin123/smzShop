@@ -1,4 +1,4 @@
-# H2 ???? ??
+# H2
 spring:
   application:
     name: auth-service
@@ -32,6 +32,12 @@ logging:
     org.springframework: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+#JWT
+jwt :
+  secret-key: mySecretKeyForJwtToken123456789!@#$%^&*()
+  access-token-expire-time: 1800000   # 30분 (ms)
+  refresh-token-expire-time: 604800000  # 7일 (ms)
 
 server:
   port: 8080

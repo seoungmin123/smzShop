@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> signup(@Valid @RequestBody UserRegisterRequest userReq){
         UserCommand.Register userCmd = UserCommand.Register.from(userReq);
         UserInfo userInfo = userService.signup(userCmd);

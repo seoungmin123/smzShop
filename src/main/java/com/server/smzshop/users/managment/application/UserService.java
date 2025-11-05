@@ -30,19 +30,16 @@ public class UserService {
         // 4) 저장 결과를 UserInfo/UserResponse로 변환해서 리턴
         Users saved = userRepository.save(user);
 
-       return UserInfo.from(saved);
+        return UserInfo.from(saved);
     }
 
     public UserInfo getUser(String userId) {
-        if (!existsByUserId(userId)) {
-            throw new BusinessException(ExceptionEnum.USER_NOT_FOUND, userId);
-        }
-        
-        Users user = userRepository.findByUserId(userId);
+        Users user = userRepository.findByUserId(userId)
+                .orElseThrow(()->new BusinessException(ExceptionEnum.USER_NOT_FOUND, userId));
         return UserInfo.from(user);
     }
 
     private boolean existsByUserId(String userId) {
-        return userRepository.findByUserId(userId) != null;
+        return userRepository.findByUserId(userId).isPresent();
     }
 }
