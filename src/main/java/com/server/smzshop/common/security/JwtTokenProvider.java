@@ -16,14 +16,22 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret-key}")
-    private String secretKey;
+    private final SecretKey secretKey;
 
     @Value("${jwt.access-token-expire-time}")
     private Long accessTokenExpireTime;
 
     @Value("${jwt.refresh-token-expire-time}")
     private Long refreshTokenExpireTime;
+
+    public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKeyString) {
+        if(secretKeyString.getBytes().length<64){
+            this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        }else {
+            this.secretKey = Keys.hmacShaKeyFor(secretKeyString.getBytes());
+        }
+    }
+
 
     //Token Dto 변환
     public AuthTokenDto getAuthToken(String userId){
@@ -43,7 +51,7 @@ public class JwtTokenProvider {
                 .setSubject(userId) //토큰 주인
                 .setIssuedAt(now) //토큰 발급시간
                 .setExpiration(expireDate) //토큰 만료시간
-                .signWith(generateKey(),SignatureAlgorithm.HS512) // 서명
+                .signWith(secretKey,SignatureAlgorithm.HS512) // 서명
                 .compact();
     }
 
@@ -58,14 +66,14 @@ public class JwtTokenProvider {
                 .setIssuedAt(now)
                 .setExpiration(expireDate)
                 .claim("type","refresh")
-                .signWith(generateKey(),SignatureAlgorithm.HS512)
+                .signWith(secretKey,SignatureAlgorithm.HS512)
                 .compact();
     }
 
     //토큰에서 사용자 ID추출
     public String getUserIdFromToken(String token){
         Claims claims = Jwts.parserBuilder()
-                .setSigningKey(generateKey())
+                .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -76,7 +84,7 @@ public class JwtTokenProvider {
     public boolean validate(String token){
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(generateKey())
+                    .setSigningKey(secretKey)
                     .requireIssuer("smzshop")
                     .build()
                     .parseClaimsJws(token);
@@ -84,16 +92,10 @@ public class JwtTokenProvider {
         }catch (JwtException | IllegalArgumentException e){
             return false;
         }
-
     }
 
     public LocalDateTime getRefreshTokenExpireTime(){
         return LocalDateTime.now().plusSeconds(refreshTokenExpireTime);
-    }
-
-    //키 생성
-    private SecretKey generateKey(){
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
 }
