@@ -18,7 +18,7 @@ public enum ExceptionEnum {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U0002", "사용자를 찾을 수 없습니다. : %s"),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "U0003", "비밀번호가 일치하지 않습니다."),
     ACCOUNT_DISABLED(HttpStatus.FORBIDDEN, "U0004", "비활성화된 계정입니다. : %s"),
-    INVALID_USERNAME_FORMAT(HttpStatus.BAD_REQUEST, "U0005", "아이디 형식이 올바르지 않습니다. : %s"),
+    INVALID_USERID_FORMAT(HttpStatus.BAD_REQUEST, "U0005", "아이디 형식이 올바르지 않습니다. : %s"),
     INVALID_PASSWORD_FORMAT(HttpStatus.BAD_REQUEST, "U0006", "비밀번호 형식이 올바르지 않습니다. : %s"),
 
     // 인증/인가 예외 (A로 시작)
@@ -26,6 +26,8 @@ public enum ExceptionEnum {
     ACCESS_DENIED(HttpStatus.FORBIDDEN, "A0002", "접근 권한이 없습니다. : %s"),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "A0003", "토큰이 만료되었습니다. : %s"),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "A0004", "유효하지 않은 토큰입니다. : %s"),
+    ACCESS_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "A0005", "access 토큰을 찾을수 없습니다. : %s"),
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "A0006", "refresh 토큰을 찾을수 없습니다. : %s"),
 
     // 일반적인 비즈니스 예외 (B로 시작)
     INVALID_INPUT(HttpStatus.BAD_REQUEST, "B0001", "입력값이 올바르지 않습니다. : %s"),
