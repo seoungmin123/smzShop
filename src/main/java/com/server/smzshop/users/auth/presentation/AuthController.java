@@ -62,7 +62,7 @@ public class AuthController {
 
     private void setRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
         Cookie cookie = new Cookie("refreshToken", refreshToken);
-
+        cookie.setSecure(false);  // 로컬(HTTP)에서는 false
         cookie.setHttpOnly(true); //javascript 접근 차단
         cookie.setSecure(true); //https에서만 전송
         cookie.setPath("/");

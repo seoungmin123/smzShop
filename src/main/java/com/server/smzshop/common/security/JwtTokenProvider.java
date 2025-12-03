@@ -6,6 +6,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,23 +14,27 @@ import javax.crypto.SecretKey;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Slf4j
 @Component
 public class JwtTokenProvider {
 
     private final SecretKey secretKey;
+    private final Long accessTokenExpireTime;
+    private final Long refreshTokenExpireTime;
 
-    @Value("${jwt.access-token-expire-time}")
-    private Long accessTokenExpireTime;
-
-    @Value("${jwt.refresh-token-expire-time}")
-    private Long refreshTokenExpireTime;
-
-    public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKeyString) {
+    public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKeyString,
+                            @Value("${jwt.access-token-expire-time}")Long accessTokenExpireTime,
+                            @Value("${jwt.refresh-token-expire-time}") Long refreshTokenExpireTime) {
+        this.accessTokenExpireTime = accessTokenExpireTime;
+        this.refreshTokenExpireTime = refreshTokenExpireTime;
         if(secretKeyString.getBytes().length<64){
             this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
         }else {
             this.secretKey = Keys.hmacShaKeyFor(secretKeyString.getBytes());
         }
+
+        log.info("JWT Access Token Expire Time : {} sec",accessTokenExpireTime);
+        log.info("JWT Refresh Token Expire Time : {} sec",refreshTokenExpireTime);
     }
 
 

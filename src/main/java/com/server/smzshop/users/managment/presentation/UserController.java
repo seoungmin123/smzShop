@@ -5,9 +5,11 @@ import com.server.smzshop.users.managment.application.UserInfo;
 import com.server.smzshop.users.managment.application.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
@@ -17,6 +19,9 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> signup(@Valid @RequestBody UserRegisterRequest userReq){
+        log.info("=== Controller: signup called ===");
+        log.info("Request: {}", userReq);
+
         UserCommand.Register userCmd = UserCommand.Register.from(userReq);
         UserInfo userInfo = userService.signup(userCmd);
         return ResponseEntity.ok(UserResponse.from(userInfo));

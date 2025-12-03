@@ -25,6 +25,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        String method = request.getMethod();
+
+        boolean skip = "OPTIONS".equals(method) ||
+                       path.equals("/api/v1/users/register") ||
+                       path.startsWith("/api/v1/auth/") ||
+                       path.startsWith("/h2-console/");
+
+        log.info("shouldNotFilter: {} -> {}", path, skip);
+        return skip;
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("JwtAuthenticationFilter doFilterInternal");
         log.info("request uri : {}", request.getRequestURI());

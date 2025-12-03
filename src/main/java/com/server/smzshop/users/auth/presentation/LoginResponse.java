@@ -9,7 +9,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class LoginResponse {
-
+    //TODO 유저 아이디
     private String accessToken;
     private String refreshToken;
     private String tokenType;
